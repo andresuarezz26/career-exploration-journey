@@ -1,13 +1,14 @@
 
 import OpenAI from 'openai';
 
-const openai = new OpenAI({
-  apiKey: import.meta.env.VITE_OPENAI_API_KEY,
-  dangerouslyAllowBrowser: true
-});
-
-export const analyzeTestResults = async (testResults: any) => {
+export const analyzeTestResults = async (testResults: any, apiKey: string) => {
   console.log('Received test results:', testResults);
+  
+  // Create OpenAI instance with provided API key
+  const openai = new OpenAI({
+    apiKey: apiKey,
+    dangerouslyAllowBrowser: true
+  });
   
   try {
     // Log the specific structure of the test results
@@ -17,7 +18,7 @@ export const analyzeTestResults = async (testResults: any) => {
     const traits = generatePersonalityInsights(testResults);
     console.log('Generated traits:', traits);
     
-    const careerRecommendations = await generateCareerRecommendations(traits);
+    const careerRecommendations = await generateCareerRecommendations(openai, traits);
     
     return {
       personalityInsights: traits,
@@ -45,22 +46,33 @@ const generatePersonalityInsights = (testResults: any) => {
 
   console.log('Parsed results:', parsedResults);
 
-  // More defensive approach to accessing nested properties
-  const traits = parsedResults.traits || parsedResults.personality || [];
+  // Extract skills and personality data
+  let traits = [];
   
-  if (!traits || traits.length === 0) {
-    console.error('No traits found in test results');
-    throw new Error('No personality traits found');
+  // Look for traits in different possible locations in the JSON structure
+  if (parsedResults.traits) {
+    traits = parsedResults.traits;
+  } else if (parsedResults.personality) {
+    traits = parsedResults.personality;
+  } else if (parsedResults.scores) {
+    // Convert scores to traits
+    traits = Object.entries(parsedResults.scores).map(([name, score]) => ({
+      name,
+      score,
+      description: `Your ${name} aptitude score is ${score}`
+    }));
+  } else {
+    throw new Error('Cannot find personality traits or scores in the test results');
   }
-
+  
   return traits.map((trait: any) => ({
-    name: trait.name || 'Unknown Trait',
-    score: trait.score || 0,
-    description: trait.description || 'No description available'
+    name: trait.name || trait.trait || 'Unknown Trait',
+    score: trait.score || trait.value || 0,
+    description: trait.description || `Your ${trait.name || 'trait'} score is ${trait.score || 0}`
   }));
 };
 
-const generateCareerRecommendations = async (traits: any[]) => {
+const generateCareerRecommendations = async (openai: OpenAI, traits: any[]) => {
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",

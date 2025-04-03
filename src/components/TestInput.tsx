@@ -5,6 +5,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/components/ui/use-toast';
 import { analyzeTestResults } from '@/services/analysisService';
+import { Input } from '@/components/ui/input';
 
 interface TestInputProps {
   onAnalysisComplete: (analysisData: any) => void;
@@ -13,6 +14,7 @@ interface TestInputProps {
 
 const TestInput: React.FC<TestInputProps> = ({ onAnalysisComplete, setIsLoading }) => {
   const [jsonInput, setJsonInput] = useState('');
+  const [apiKey, setApiKey] = useState('');
   const { toast } = useToast();
   
   const handleSubmit = async () => {
@@ -20,8 +22,17 @@ const TestInput: React.FC<TestInputProps> = ({ onAnalysisComplete, setIsLoading 
       // Validate JSON input
       const parsedJson = JSON.parse(jsonInput);
       
+      if (!apiKey.trim()) {
+        toast({
+          title: "API Key Required",
+          description: "Please enter your OpenAI API key",
+          variant: "destructive"
+        });
+        return;
+      }
+      
       setIsLoading(true);
-      const analysisResult = await analyzeTestResults(parsedJson);
+      const analysisResult = await analyzeTestResults(parsedJson, apiKey);
       onAnalysisComplete(analysisResult);
       setIsLoading(false);
     } catch (error) {
@@ -75,14 +86,32 @@ const TestInput: React.FC<TestInputProps> = ({ onAnalysisComplete, setIsLoading 
           Paste the psychological test results in JSON format below to get your career analysis
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <Textarea
-          placeholder="Paste your JSON test results here..."
-          className="min-h-[200px] font-mono text-sm"
-          value={jsonInput}
-          onChange={(e) => setJsonInput(e.target.value)}
-        />
-        <div className="mt-4 flex justify-between items-center">
+      <CardContent className="space-y-4">
+        <div>
+          <label htmlFor="api-key" className="block text-sm font-medium mb-1">OpenAI API Key</label>
+          <Input
+            id="api-key"
+            type="password"
+            placeholder="Enter your OpenAI API key"
+            value={apiKey}
+            onChange={(e) => setApiKey(e.target.value)}
+            className="font-mono text-sm"
+          />
+          <p className="text-xs text-muted-foreground mt-1">
+            Your API key is used locally and never stored on our servers
+          </p>
+        </div>
+        
+        <div>
+          <Textarea
+            placeholder="Paste your JSON test results here..."
+            className="min-h-[200px] font-mono text-sm"
+            value={jsonInput}
+            onChange={(e) => setJsonInput(e.target.value)}
+          />
+        </div>
+        
+        <div className="flex justify-between items-center">
           <Button 
             variant="outline" 
             size="sm"
