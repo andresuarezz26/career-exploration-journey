@@ -20,9 +20,19 @@ export const analyzeTestResults = async (testResults: any, apiKey: string) => {
     
     const careerRecommendations = await generateCareerRecommendations(openai, traits);
     
+    // Create a simple summary based on traits
+    const topTraits = [...traits].sort((a, b) => b.score - a.score).slice(0, 3);
+    const summary = `Based on your test results, your top strengths are ${topTraits.map(t => t.name).join(', ')}. We've analyzed these traits to recommend suitable career paths.`;
+    
     return {
       personalityInsights: traits,
-      careerRecommendations
+      careerRecommendations,
+      summary,
+      // Convert traits to aptitude scores format for charts
+      aptitudeScores: traits.map(trait => ({
+        name: trait.name,
+        value: trait.score
+      }))
     };
   } catch (error) {
     console.error('Error in analyzeTestResults:', error);
@@ -46,16 +56,17 @@ const generatePersonalityInsights = (testResults: any) => {
 
   console.log('Parsed results:', parsedResults);
 
-  // Extract skills and personality data
+  // Extract traits/scores from different possible JSON structures
   let traits = [];
   
-  // Look for traits in different possible locations in the JSON structure
   if (parsedResults.traits) {
+    // If traits array is directly available
     traits = parsedResults.traits;
   } else if (parsedResults.personality) {
+    // If traits are in a personality property
     traits = parsedResults.personality;
   } else if (parsedResults.scores) {
-    // Convert scores to traits
+    // If we have a scores object, convert it to traits
     traits = Object.entries(parsedResults.scores).map(([name, score]) => ({
       name,
       score,

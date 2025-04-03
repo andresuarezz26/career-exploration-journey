@@ -21,6 +21,21 @@ const Analysis: React.FC<AnalysisProps> = ({ analysisData }) => {
     careerMatches
   } = analysisData;
 
+  // Convert personalityInsights array to a formatted string if it's an array
+  const formattedPersonalityInsights = Array.isArray(personalityInsights)
+    ? personalityInsights.map(trait => 
+        `${trait.name}: ${trait.score}/100 - ${trait.description}`
+      ).join('\n\n')
+    : personalityInsights;
+
+  // Use the array as aptitude scores data
+  const aptitudeScoresData = Array.isArray(personalityInsights)
+    ? personalityInsights.map(trait => ({
+        name: trait.name,
+        value: trait.score
+      }))
+    : aptitudeScores;
+
   return (
     <div className="space-y-6">
       <Card>
@@ -31,19 +46,19 @@ const Analysis: React.FC<AnalysisProps> = ({ analysisData }) => {
         <CardContent>
           <div className="prose max-w-none">
             <h3 className="text-xl font-semibold mb-2">Summary</h3>
-            <p className="text-muted-foreground">{summary}</p>
+            <p className="text-muted-foreground">{summary || "Based on your test results, we've analyzed your strengths and aptitudes to suggest suitable career paths."}</p>
           </div>
         </CardContent>
       </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <AnalysisChart 
-          data={aptitudeScores} 
+          data={aptitudeScoresData || []} 
           chartType="radar" 
           title="Aptitude Profile"
         />
         <AnalysisChart 
-          data={careerMatches} 
+          data={careerMatches || []} 
           chartType="bar" 
           title="Career Matches"
         />
@@ -63,17 +78,19 @@ const Analysis: React.FC<AnalysisProps> = ({ analysisData }) => {
               <CardTitle>Career Recommendations</CardTitle>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-2">
-                {Array.isArray(careerRecommendations) ? (
-                  careerRecommendations.map((career, index) => (
+              {Array.isArray(careerRecommendations) ? (
+                <ul className="space-y-2">
+                  {careerRecommendations.map((career, index) => (
                     <li key={index} className="p-3 rounded-md bg-explora-light hover:bg-explora-accent/20 transition-colors">
                       {career}
                     </li>
-                  ))
-                ) : (
-                  <p>{careerRecommendations || "No specific recommendations available."}</p>
-                )}
-              </ul>
+                  ))}
+                </ul>
+              ) : (
+                <div className="whitespace-pre-line">
+                  {careerRecommendations || "No specific recommendations available."}
+                </div>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
@@ -122,7 +139,18 @@ const Analysis: React.FC<AnalysisProps> = ({ analysisData }) => {
               <CardTitle>Personality Insights</CardTitle>
             </CardHeader>
             <CardContent>
-              <p>{personalityInsights || "No personality insights available."}</p>
+              {Array.isArray(personalityInsights) ? (
+                <ul className="space-y-4">
+                  {personalityInsights.map((trait, index) => (
+                    <li key={index} className="p-3 bg-explora-light/50 rounded-lg">
+                      <div className="font-medium">{trait.name} - Score: {trait.score}/100</div>
+                      <div className="mt-1 text-sm text-muted-foreground">{trait.description}</div>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="whitespace-pre-line">{formattedPersonalityInsights || "No personality insights available."}</p>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
