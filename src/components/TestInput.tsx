@@ -62,7 +62,6 @@ const TestInput: React.FC<TestInputProps> = ({ onAnalysisComplete, setIsLoading 
 
   const exampleJson = JSON.stringify({
     "test_name": "Prueba de Personalidad 16PF",
-    "description": "Una evaluación psicológica que mide 16 rasgos primarios de personalidad.",
     "version": "5ª Edición",
     "person": {
       "name": "Juan Pérez",
@@ -73,37 +72,22 @@ const TestInput: React.FC<TestInputProps> = ({ onAnalysisComplete, setIsLoading 
         "id": 1,
         "trait": "Calidez",
         "question_text": "Disfruto socializar y conocer gente nueva.",
-        "options": [
-          { "value": 1, "text": "Totalmente en desacuerdo" },
-          { "value": 2, "text": "En desacuerdo" },
-          { "value": 3, "text": "Neutral" },
-          { "value": 4, "text": "De acuerdo" },
-          { "value": 5, "text": "Totalmente de acuerdo" }
-        ]
+        "score": 3,
+        "scale": "Neutral"
       },
       {
         "id": 2,
         "trait": "Razonamiento",
         "question_text": "Disfruto resolver problemas complejos y acertijos.",
-        "options": [
-          { "value": 1, "text": "Totalmente en desacuerdo" },
-          { "value": 2, "text": "En desacuerdo" },
-          { "value": 3, "text": "Neutral" },
-          { "value": 4, "text": "De acuerdo" },
-          { "value": 5, "text": "Totalmente de acuerdo" }
-        ]
+        "score": 4,
+        "scale": "De acuerdo"
       },
       {
         "id": 3,
         "trait": "Estabilidad Emocional",
         "question_text": "Permanezco tranquilo y sereno bajo presión.",
-        "options": [
-          { "value": 1, "text": "Totalmente en desacuerdo" },
-          { "value": 2, "text": "En desacuerdo" },
-          { "value": 3, "text": "Neutral" },
-          { "value": 4, "text": "De acuerdo" },
-          { "value": 5, "text": "Totalmente de acuerdo" }
-        ]
+        "score": 5,
+        "scale": "Totalmente de acuerdo"
       }
     ],
     "scoring_method": "Cada respuesta se puntúa de 1 a 5. La suma de las respuestas de cada rasgo determina la puntuación del factor de personalidad.",

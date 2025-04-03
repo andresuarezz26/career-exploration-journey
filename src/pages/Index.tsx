@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import TestInput from '@/components/TestInput';
@@ -11,9 +10,11 @@ import { Separator } from '@/components/ui/separator';
 const Index = () => {
   const [analysisData, setAnalysisData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState('input');
 
   const handleAnalysisComplete = (data: any) => {
     setAnalysisData(data);
+    setActiveTab('results'); // Switch to results tab when analysis is complete
   };
 
   return (
@@ -31,7 +32,7 @@ const Index = () => {
           </p>
         </div>
         
-        <Tabs defaultValue="input" className="w-full">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-8">
             <TabsTrigger value="input" disabled={isLoading}>Introducir Resultados</TabsTrigger>
             <TabsTrigger value="results" disabled={!analysisData || isLoading}>Resultados del Análisis</TabsTrigger>

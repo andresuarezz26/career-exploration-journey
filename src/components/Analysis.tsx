@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -40,13 +39,13 @@ const Analysis: React.FC<AnalysisProps> = ({ analysisData }) => {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl gradient-text">Career Analysis Results</CardTitle>
-          <CardDescription>Based on your psychological test results</CardDescription>
+          <CardTitle className="text-2xl gradient-text">Resultados del Análisis</CardTitle>
+          <CardDescription>Basado en tus resultados de pruebas psicológicas</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="prose max-w-none">
-            <h3 className="text-xl font-semibold mb-2">Summary</h3>
-            <p className="text-muted-foreground">{summary || "Based on your test results, we've analyzed your strengths and aptitudes to suggest suitable career paths."}</p>
+            <h3 className="text-xl font-semibold mb-2">Resumen</h3>
+            <p className="text-muted-foreground">{summary || "Basado en tus resultados, hemos analizado tus fortalezas y aptitudes para sugerir carreras adecuadas."}</p>
           </div>
         </CardContent>
       </Card>
@@ -55,42 +54,34 @@ const Analysis: React.FC<AnalysisProps> = ({ analysisData }) => {
         <AnalysisChart 
           data={aptitudeScoresData || []} 
           chartType="radar" 
-          title="Aptitude Profile"
+          title="Perfil de Aptitudes"
         />
         <AnalysisChart 
           data={careerMatches || []} 
           chartType="bar" 
-          title="Career Matches"
+          title="Carreras Recomendadas"
         />
       </div>
 
       <Tabs defaultValue="recommendations">
         <TabsList className="grid grid-cols-4 mb-4">
-          <TabsTrigger value="recommendations">Recommendations</TabsTrigger>
-          <TabsTrigger value="strengths">Strengths</TabsTrigger>
-          <TabsTrigger value="growth">Growth Areas</TabsTrigger>
-          <TabsTrigger value="personality">Personality</TabsTrigger>
+          <TabsTrigger value="recommendations">Análisis Detallado</TabsTrigger>
+          <TabsTrigger value="strengths">Fortalezas</TabsTrigger>
+          <TabsTrigger value="growth">Áreas de Desarrollo</TabsTrigger>
+          <TabsTrigger value="personality">Personalidad</TabsTrigger>
         </TabsList>
         
         <TabsContent value="recommendations" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Career Recommendations</CardTitle>
+              <CardTitle>Análisis Personalizado</CardTitle>
             </CardHeader>
             <CardContent>
-              {Array.isArray(careerRecommendations) ? (
-                <ul className="space-y-2">
-                  {careerRecommendations.map((career, index) => (
-                    <li key={index} className="p-3 rounded-md bg-explora-light hover:bg-explora-accent/20 transition-colors">
-                      {career}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <div className="whitespace-pre-line">
-                  {careerRecommendations || "No specific recommendations available."}
+              <div className="prose max-w-none">
+                <div className="whitespace-pre-line text-muted-foreground">
+                  {careerRecommendations || "No hay recomendaciones específicas disponibles."}
                 </div>
-              )}
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
@@ -98,7 +89,7 @@ const Analysis: React.FC<AnalysisProps> = ({ analysisData }) => {
         <TabsContent value="strengths">
           <Card>
             <CardHeader>
-              <CardTitle>Key Strengths</CardTitle>
+              <CardTitle>Fortalezas Principales</CardTitle>
             </CardHeader>
             <CardContent>
               {Array.isArray(strengths) ? (
@@ -108,7 +99,7 @@ const Analysis: React.FC<AnalysisProps> = ({ analysisData }) => {
                   ))}
                 </ul>
               ) : (
-                <p>{strengths || "No specific strengths identified."}</p>
+                <p>{strengths || "No se identificaron fortalezas específicas."}</p>
               )}
             </CardContent>
           </Card>
@@ -117,7 +108,7 @@ const Analysis: React.FC<AnalysisProps> = ({ analysisData }) => {
         <TabsContent value="growth">
           <Card>
             <CardHeader>
-              <CardTitle>Areas for Growth</CardTitle>
+              <CardTitle>Áreas de Desarrollo</CardTitle>
             </CardHeader>
             <CardContent>
               {Array.isArray(areasOfGrowth) ? (
@@ -127,7 +118,7 @@ const Analysis: React.FC<AnalysisProps> = ({ analysisData }) => {
                   ))}
                 </ul>
               ) : (
-                <p>{areasOfGrowth || "No specific growth areas identified."}</p>
+                <p>{areasOfGrowth || "No se identificaron áreas de desarrollo específicas."}</p>
               )}
             </CardContent>
           </Card>
@@ -136,20 +127,20 @@ const Analysis: React.FC<AnalysisProps> = ({ analysisData }) => {
         <TabsContent value="personality">
           <Card>
             <CardHeader>
-              <CardTitle>Personality Insights</CardTitle>
+              <CardTitle>Insights de Personalidad</CardTitle>
             </CardHeader>
             <CardContent>
               {Array.isArray(personalityInsights) ? (
                 <ul className="space-y-4">
                   {personalityInsights.map((trait, index) => (
                     <li key={index} className="p-3 bg-explora-light/50 rounded-lg">
-                      <div className="font-medium">{trait.name} - Score: {trait.score}/100</div>
+                      <div className="font-medium">{trait.name} - Puntuación: {trait.score}/100</div>
                       <div className="mt-1 text-sm text-muted-foreground">{trait.description}</div>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <p className="whitespace-pre-line">{formattedPersonalityInsights || "No personality insights available."}</p>
+                <p className="whitespace-pre-line">{formattedPersonalityInsights || "No hay insights de personalidad disponibles."}</p>
               )}
             </CardContent>
           </Card>
