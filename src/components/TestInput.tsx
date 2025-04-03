@@ -18,10 +18,10 @@ const TestInput: React.FC<TestInputProps> = ({ onAnalysisComplete, setIsLoading 
   const handleSubmit = async () => {
     try {
       // Validate JSON input
-      JSON.parse(jsonInput);
+      const parsedJson = JSON.parse(jsonInput);
       
       setIsLoading(true);
-      const analysisResult = await analyzeTestResults(jsonInput);
+      const analysisResult = await analyzeTestResults(parsedJson);
       onAnalysisComplete(analysisResult);
       setIsLoading(false);
     } catch (error) {
