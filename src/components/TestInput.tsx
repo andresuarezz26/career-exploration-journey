@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -19,13 +18,12 @@ const TestInput: React.FC<TestInputProps> = ({ onAnalysisComplete, setIsLoading 
   
   const handleSubmit = async () => {
     try {
-      // Validate JSON input
       const parsedJson = JSON.parse(jsonInput);
       
       if (!apiKey.trim()) {
         toast({
-          title: "API Key Required",
-          description: "Please enter your OpenAI API key",
+          title: "Clave API Requerida",
+          description: "Por favor, ingresa tu clave API de OpenAI",
           variant: "destructive"
         });
         return;
@@ -37,8 +35,8 @@ const TestInput: React.FC<TestInputProps> = ({ onAnalysisComplete, setIsLoading 
       setIsLoading(false);
     } catch (error) {
       toast({
-        title: "Invalid JSON format",
-        description: "Please check your input and try again",
+        title: "Formato de JSON inválido",
+        description: "Por favor, verifica tu entrada y inténtalo de nuevo",
         variant: "destructive"
       });
       setIsLoading(false);
@@ -50,20 +48,20 @@ const TestInput: React.FC<TestInputProps> = ({ onAnalysisComplete, setIsLoading 
       const clipboardText = await navigator.clipboard.readText();
       setJsonInput(clipboardText);
       toast({
-        title: "Content pasted",
-        description: "Test results have been pasted from clipboard",
+        title: "Contenido pegado",
+        description: "Los resultados de la prueba han sido pegados desde el portapapeles",
       });
     } catch (error) {
       toast({
-        title: "Unable to access clipboard",
-        description: "Please paste the content manually",
+        title: "No se puede acceder al portapapeles",
+        description: "Por favor, pega el contenido manualmente",
         variant: "destructive"
       });
     }
   };
 
   const exampleJson = JSON.stringify({
-    "testName": "Career Aptitude Assessment",
+    "testName": "Evaluación de Aptitud Profesional",
     "studentName": "Alex Johnson",
     "age": 16,
     "testDate": "2023-10-15",
@@ -75,36 +73,36 @@ const TestInput: React.FC<TestInputProps> = ({ onAnalysisComplete, setIsLoading 
       "verbal": 88,
       "numerical": 72
     },
-    "interests": ["technology", "arts", "science", "helping others"]
+    "interests": ["tecnología", "artes", "ciencia", "ayudar a otros"]
   }, null, 2);
 
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Paste Test Results</CardTitle>
+        <CardTitle>Pegar Resultados de Prueba</CardTitle>
         <CardDescription>
-          Paste the psychological test results in JSON format below to get your career analysis
+          Pega los resultados de la prueba psicológica en formato JSON a continuación para obtener tu análisis de carrera
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
-          <label htmlFor="api-key" className="block text-sm font-medium mb-1">OpenAI API Key</label>
+          <label htmlFor="api-key" className="block text-sm font-medium mb-1">Clave API de OpenAI</label>
           <Input
             id="api-key"
             type="password"
-            placeholder="Enter your OpenAI API key"
+            placeholder="Ingresa tu clave API de OpenAI"
             value={apiKey}
             onChange={(e) => setApiKey(e.target.value)}
             className="font-mono text-sm"
           />
           <p className="text-xs text-muted-foreground mt-1">
-            Your API key is used locally and never stored on our servers
+            Tu clave API se usa localmente y nunca se almacena en nuestros servidores
           </p>
         </div>
         
         <div>
           <Textarea
-            placeholder="Paste your JSON test results here..."
+            placeholder="Pega aquí tus resultados de prueba en JSON..."
             className="min-h-[200px] font-mono text-sm"
             value={jsonInput}
             onChange={(e) => setJsonInput(e.target.value)}
@@ -118,7 +116,7 @@ const TestInput: React.FC<TestInputProps> = ({ onAnalysisComplete, setIsLoading 
             onClick={() => setJsonInput(exampleJson)}
             className="text-xs"
           >
-            Load Example
+            Cargar Ejemplo
           </Button>
           <Button 
             variant="outline" 
@@ -126,7 +124,7 @@ const TestInput: React.FC<TestInputProps> = ({ onAnalysisComplete, setIsLoading 
             onClick={handlePaste}
             className="text-xs"
           >
-            Paste from Clipboard
+            Pegar desde Portapapeles
           </Button>
         </div>
       </CardContent>
@@ -135,7 +133,7 @@ const TestInput: React.FC<TestInputProps> = ({ onAnalysisComplete, setIsLoading 
           onClick={handleSubmit} 
           className="w-full bg-gradient-to-r from-explora-primary to-explora-secondary hover:opacity-90"
         >
-          Analyze Results
+          Analizar Resultados
         </Button>
       </CardFooter>
     </Card>
