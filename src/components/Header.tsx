@@ -10,7 +10,7 @@ const Header: React.FC = () => {
           <BookOpen className="h-8 w-8 text-explora-primary" />
           <div>
             <h1 className="text-2xl font-bold gradient-text">Explora</h1>
-            <p className="text-xs text-muted-foreground">Career Exploration Journey</p>
+            <p className="text-xs text-muted-foreground">Viaje de Exploración de Carreras</p>
           </div>
         </div>
       </div>

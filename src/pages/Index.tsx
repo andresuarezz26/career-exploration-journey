@@ -23,18 +23,18 @@ const Index = () => {
       <main className="explora-container">
         <div className="max-w-3xl mx-auto text-center mb-12 pt-10">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">
-            Discover Your <span className="gradient-text">Ideal Career</span> Path
+            Descubre Tu <span className="gradient-text">Carrera Ideal</span>
           </h1>
           <p className="text-lg text-muted-foreground mx-auto max-w-2xl">
-            Explora helps students understand their strengths and explore career options 
-            that match their unique abilities and interests.
+            Explora ayuda a los estudiantes a comprender sus fortalezas y explorar opciones de carrera 
+            que coincidan con sus habilidades e intereses únicos.
           </p>
         </div>
         
         <Tabs defaultValue="input" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-8">
-            <TabsTrigger value="input" disabled={isLoading}>Test Input</TabsTrigger>
-            <TabsTrigger value="results" disabled={!analysisData || isLoading}>Analysis Results</TabsTrigger>
+            <TabsTrigger value="input" disabled={isLoading}>Introducir Resultados</TabsTrigger>
+            <TabsTrigger value="results" disabled={!analysisData || isLoading}>Resultados del Análisis</TabsTrigger>
           </TabsList>
           
           <TabsContent value="input">
@@ -49,32 +49,33 @@ const Index = () => {
               <div className="space-y-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>How It Works</CardTitle>
+                    <CardTitle>Cómo Funciona</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex items-start gap-3">
                       <div className="bg-explora-primary text-white rounded-full w-6 h-6 flex items-center justify-center shrink-0">1</div>
-                      <p className="text-sm">Paste your psychological test results in JSON format</p>
+                      <p className="text-sm">Pega tus resultados de prueba psicológica en formato JSON</p>
                     </div>
                     <div className="flex items-start gap-3">
                       <div className="bg-explora-primary text-white rounded-full w-6 h-6 flex items-center justify-center shrink-0">2</div>
-                      <p className="text-sm">Our AI analyzes your unique strengths and aptitudes</p>
+                      <p className="text-sm">Nuestra IA analiza tus fortalezas y aptitudes únicas</p>
                     </div>
                     <div className="flex items-start gap-3">
                       <div className="bg-explora-primary text-white rounded-full w-6 h-6 flex items-center justify-center shrink-0">3</div>
-                      <p className="text-sm">Receive personalized career recommendations and insights</p>
+                      <p className="text-sm">Recibe recomendaciones de carrera personalizadas y perspectivas</p>
                     </div>
                   </CardContent>
                 </Card>
                 
                 <Card>
                   <CardHeader>
-                    <CardTitle>About Explora</CardTitle>
+                    <CardTitle>Acerca de Explora</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      Explora uses advanced AI to help students understand their psychological test 
-                      results and discover career paths that align with their natural abilities and interests.
+                      Explora utiliza IA avanzada para ayudar a los estudiantes a comprender sus resultados 
+                      de pruebas psicológicas y descubrir trayectorias profesionales que se alineen con sus 
+                      habilidades naturales e intereses.
                     </p>
                   </CardContent>
                 </Card>
@@ -85,10 +86,10 @@ const Index = () => {
               <div className="mt-8 text-center">
                 <div className="inline-block p-4 bg-white rounded-lg shadow-md">
                   <div className="animate-bounce-light text-explora-primary text-lg font-medium">
-                    Analyzing your test results...
+                    Analizando tus resultados...
                   </div>
                   <p className="text-sm text-muted-foreground mt-2">
-                    This may take a few moments
+                    Esto puede tardar unos momentos
                   </p>
                 </div>
               </div>
@@ -106,10 +107,10 @@ const Index = () => {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center space-x-2 mb-4 md:mb-0">
               <span className="font-semibold gradient-text">Explora</span>
-              <span className="text-sm text-muted-foreground">Career Exploration Journey</span>
+              <span className="text-sm text-muted-foreground">Viaje de Exploración de Carreras</span>
             </div>
             <div className="text-sm text-muted-foreground">
-              Helping students discover their career potential
+              Ayudando a estudiantes a descubrir su potencial profesional
             </div>
           </div>
         </div>
