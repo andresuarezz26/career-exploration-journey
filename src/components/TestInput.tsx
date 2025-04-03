@@ -61,19 +61,70 @@ const TestInput: React.FC<TestInputProps> = ({ onAnalysisComplete, setIsLoading 
   };
 
   const exampleJson = JSON.stringify({
-    "testName": "Evaluación de Aptitud Profesional",
-    "studentName": "Alex Johnson",
-    "age": 16,
-    "testDate": "2023-10-15",
-    "scores": {
-      "analytical": 85,
-      "creative": 92,
-      "interpersonal": 78,
-      "practical": 65,
-      "verbal": 88,
-      "numerical": 72
+    "test_name": "Prueba de Personalidad 16PF",
+    "description": "Una evaluación psicológica que mide 16 rasgos primarios de personalidad.",
+    "version": "5ª Edición",
+    "person": {
+      "name": "Juan Pérez",
+      "whatsapp": "+34 600 123 456"
     },
-    "interests": ["tecnología", "artes", "ciencia", "ayudar a otros"]
+    "questions": [
+      {
+        "id": 1,
+        "trait": "Calidez",
+        "question_text": "Disfruto socializar y conocer gente nueva.",
+        "options": [
+          { "value": 1, "text": "Totalmente en desacuerdo" },
+          { "value": 2, "text": "En desacuerdo" },
+          { "value": 3, "text": "Neutral" },
+          { "value": 4, "text": "De acuerdo" },
+          { "value": 5, "text": "Totalmente de acuerdo" }
+        ]
+      },
+      {
+        "id": 2,
+        "trait": "Razonamiento",
+        "question_text": "Disfruto resolver problemas complejos y acertijos.",
+        "options": [
+          { "value": 1, "text": "Totalmente en desacuerdo" },
+          { "value": 2, "text": "En desacuerdo" },
+          { "value": 3, "text": "Neutral" },
+          { "value": 4, "text": "De acuerdo" },
+          { "value": 5, "text": "Totalmente de acuerdo" }
+        ]
+      },
+      {
+        "id": 3,
+        "trait": "Estabilidad Emocional",
+        "question_text": "Permanezco tranquilo y sereno bajo presión.",
+        "options": [
+          { "value": 1, "text": "Totalmente en desacuerdo" },
+          { "value": 2, "text": "En desacuerdo" },
+          { "value": 3, "text": "Neutral" },
+          { "value": 4, "text": "De acuerdo" },
+          { "value": 5, "text": "Totalmente de acuerdo" }
+        ]
+      }
+    ],
+    "scoring_method": "Cada respuesta se puntúa de 1 a 5. La suma de las respuestas de cada rasgo determina la puntuación del factor de personalidad.",
+    "traits": [
+      "Calidez",
+      "Razonamiento",
+      "Estabilidad Emocional",
+      "Dominancia",
+      "Vivacidad",
+      "Conciencia Normativa",
+      "Audacia Social",
+      "Sensibilidad",
+      "Vigilancia",
+      "Abstracción",
+      "Privacidad",
+      "Aprensión",
+      "Apertura al Cambio",
+      "Autosuficiencia",
+      "Perfeccionismo",
+      "Tensión"
+    ]
   }, null, 2);
 
   return (
