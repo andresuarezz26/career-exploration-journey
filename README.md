@@ -1,6 +1,6 @@
 # My Career Exploration Journey App
 
-Welcome to your Lovable project
+Career Exploration Journey App
 
 ## Project info
 
