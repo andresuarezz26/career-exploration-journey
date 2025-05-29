@@ -1,4 +1,6 @@
-# Welcome to your Lovable project
+# My Career Exploration Journey App
+
+Welcome to your Lovable project
 
 ## Project info
 
